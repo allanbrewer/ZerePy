@@ -14,10 +14,10 @@ These templates are formatted strings that will be populated with dynamic data a
 POST_TWEET_PROMPT = (
     "Generate a structured JSON response for a direct, assertive, pro-Trump, libertarian-leaning X post under 280 characters."
     "Make it provocative, exclamatory, and engaging, focusing on trending US politics, tech, or crypto news. Mimicking the stile of the example accounts provided."
-    "Include a reference to a trending X post by providing its ID and the original tweet’s text separately for quoting to boost community interaction."
+    "Include a reference to a real trending X post by providing its ID separately for quoting to boost community interaction."
     "Avoid humor, outdated tropes like 'libs crying,' and ensure the post feels organic and shareable. Return the response in this JSON format:"
     "{"
-    "'post_text': 'The main tweet text here (under 280 characters)',"
+    "'post_text': 'The main tweet text here (under 280 characters, no emojis or hashtags)',"
     "'quote_tweet_id': 'The numeric ID as a string of the tweet to quote (e.g., '1893072948372948372')',"
     "}"
 )
