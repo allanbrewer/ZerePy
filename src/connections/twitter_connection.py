@@ -79,7 +79,12 @@ class TwitterConnection(BaseConnection):
             "post-tweet": Action(
                 name="post-tweet",
                 parameters=[
-                    ActionParameter("message", True, str, "Text content of the tweet")
+                    ActionParameter(
+                        "message",
+                        True,
+                        dict,
+                        "Text content and quote ID of the tweet",
+                    )
                 ],
                 description="Post a new tweet",
             ),
@@ -187,7 +192,7 @@ class TwitterConnection(BaseConnection):
         Returns:
             Dict containing the API response (or raw response if stream=True)
         """
-        logger.debug(f"Making {method.upper()} request to {endpoint}")
+        logger.info(f"Making {method.upper()} request to {endpoint}")
         try:
             full_url = f"https://api.twitter.com/2/{endpoint.lstrip('/')}"
 
@@ -492,12 +497,12 @@ class TwitterConnection(BaseConnection):
         logger.debug(f"Retrieved {len(tweets)} tweets")
         return tweets
 
-    def post_tweet(self, message: str, **kwargs) -> dict:
+    def post_tweet(self, message: dict, **kwargs) -> dict:
         """Post a new tweet"""
         logger.debug("Posting new tweet")
-        self._validate_tweet_text(message)
+        self._validate_tweet_text(message["text"])
 
-        response = self._make_request("post", "tweets", json={"text": message})
+        response = self._make_request("post", "tweets", json=message)
 
         logger.info("Tweet posted successfully")
         return response

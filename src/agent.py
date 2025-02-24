@@ -128,7 +128,7 @@ class ZerePyAgent:
 
                 if self.example_accounts:
                     prompt_parts.append(
-                        "\nHere are some X example accounts for you to emulate, please avoid plagiarism:"
+                        "\nHere are some X example accounts for you to mimic, please avoid plagiarism:"
                     )
                 prompt_parts.extend(
                     f"- {example_account}" for example_account in self.example_accounts
@@ -222,20 +222,20 @@ class ZerePyAgent:
                 try:
                     # REPLENISH INPUTS
                     # TODO: Add more inputs to complexify agent behavior
-                    if (
-                        "timeline_tweets" not in self.state
-                        or self.state["timeline_tweets"] is None
-                        or len(self.state["timeline_tweets"]) == 0
-                    ):
-                        if any("tweet" in task["name"] for task in self.tasks):
-                            logger.info("\n👀 READING TIMELINE")
-                            self.state["timeline_tweets"] = (
-                                self.connection_manager.perform_action(
-                                    connection_name="twitter",
-                                    action_name="read-timeline",
-                                    params=[],
-                                )
-                            )
+                    # if (
+                    #     "timeline_tweets" not in self.state
+                    #     or self.state["timeline_tweets"] is None
+                    #     or len(self.state["timeline_tweets"]) == 0
+                    # ):
+                    #     if any("tweet" in task["name"] for task in self.tasks):
+                    #         logger.info("\n👀 READING TIMELINE")
+                    #         self.state["timeline_tweets"] = (
+                    #             self.connection_manager.perform_action(
+                    #                 connection_name="twitter",
+                    #                 action_name="read-timeline",
+                    #                 params=[],
+                    #             )
+                    #         )
 
                     if "room_info" not in self.state or self.state["room_info"] is None:
                         if any("echochambers" in task["name"] for task in self.tasks):

@@ -170,14 +170,15 @@ class ConnectionManager:
         self, connection_name: str, action_name: str, params: List[Any]
     ) -> Optional[Any]:
         """Perform an action on a specific connection with given parameters"""
+        logger.info(f"Params List: {params}")
         try:
             connection = self.connections[connection_name]
 
-            if not connection.is_configured():
-                logging.error(
-                    f"\nError: Connection '{connection_name}' is not configured"
-                )
-                return None
+            # if not connection.is_configured():
+            #     logging.error(
+            #         f"\nError: Connection '{connection_name}' is not configured"
+            #     )
+            #     return None
 
             if action_name not in connection.actions:
                 logging.error(
@@ -220,8 +221,11 @@ class ConnectionManager:
 
     def get_model_providers(self) -> List[str]:
         """Get a list of all LLM provider connections"""
-        return [
+
+        llms_names = [
             name
             for name, conn in self.connections.items()
-            if conn.is_configured() and getattr(conn, "is_llm_provider", lambda: False)
+            if getattr(conn, "is_llm_provider", lambda: False)
         ]
+
+        return [name for name in llms_names if self.connections[name].is_configured()]

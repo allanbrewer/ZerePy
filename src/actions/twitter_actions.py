@@ -2,6 +2,7 @@ import time, threading
 from src.action_handler import register_action
 from src.helpers import print_h_bar
 from src.prompts import POST_TWEET_PROMPT, REPLY_TWEET_PROMPT
+import json
 
 
 @register_action("post-tweet")
@@ -17,14 +18,14 @@ def post_tweet(agent, **kwargs):
         agent.logger.info("\n📝 GENERATING NEW TWEET")
         print_h_bar()
 
-        prompt = POST_TWEET_PROMPT.format(agent_name=agent.name)
-        tweet_text = agent.prompt_llm(prompt)
+        prompt = POST_TWEET_PROMPT
+        tweet_json = json.loads(agent.prompt_llm(prompt))
 
-        if tweet_text:
+        if tweet_json["text"]:
             agent.logger.info("\n🚀 Posting tweet:")
-            agent.logger.info(f"'{tweet_text}'")
+            agent.logger.info(f"'{tweet_json}'")
             agent.connection_manager.perform_action(
-                connection_name="twitter", action_name="post-tweet", params=[tweet_text]
+                connection_name="twitter", action_name="post-tweet", params=[tweet_json]
             )
             agent.state["last_tweet_time"] = current_time
             agent.logger.info("\n✅ Tweet posted successfully!")

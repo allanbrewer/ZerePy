@@ -12,13 +12,18 @@ These templates are formatted strings that will be populated with dynamic data a
 # )
 
 POST_TWEET_PROMPT = (
-    "Generate a structured JSON response for a direct, assertive, pro-Trump, libertarian-leaning X post under 280 characters."
-    "Make it provocative, exclamatory, and engaging, focusing on trending US politics, tech, or crypto news. Mimicking the stile of the example accounts provided."
-    "Include a reference to a real trending X post by providing its ID separately for quoting to boost community interaction."
+    "Generate a structured JSON response for a assertive, provocative X post under 280 characters."
+    "Make it provocative, exclamatory, and engaging, focusing on trending US politics, tech, or crypto news."
+    "The post should use humor on multiple levels, especially by mocking trending X posts and its repleis, and be engaging for the community."
+    "Remember you are Republican and Libertarian (don't make it to ovbious), so make sure the post makes fun of the left."
+    "Make sure the post you use is a REAL recent post, that it actually eixists and is trending."
+    "The post should be engaging, and should make fun or mock a trending X post."
+    "Avoid usning words like AI or outing yourself as a bot."
     "Avoid humor, outdated tropes like 'libs crying,' and ensure the post feels organic and shareable. Return the response in this JSON format:"
+    "Include the reference ID to the trending X post being mocked providing its ID separately for quoting."
     "{"
-    "'post_text': 'The main tweet text here (under 280 characters, no emojis or hashtags)',"
-    "'quote_tweet_id': 'The numeric ID as a string of the tweet to quote (e.g., '1893072948372948372')',"
+    "'text': 'The main tweet text here (under 280 characters, no emojis or hashtags)',"
+    "'quote_tweet_id': 'The numeric ID as a string of the tweet to quote (e.g., '1893072948372948372')'"
     "}"
 )
 
